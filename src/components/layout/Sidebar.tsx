@@ -27,7 +27,6 @@ function Sidebar({ open, setOpen }: SidebarProps) {
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: Home, show: true },
     { name: 'Tickets', href: '/tickets', icon: Ticket, show: true },
-    { name: 'Create Ticket', href: '/tickets/create', icon: PlusCircle, show: true },
     { name: 'Admin Dashboard', href: '/admin', icon: BarChart3, show: user?.role === 'admin' },
     { name: 'Agent Dashboard', href: '/agent', icon: Users, show: user?.role === 'admin' || user?.role === 'agent' },
     { name: 'Settings', href: '/profile', icon: Settings, show: true },

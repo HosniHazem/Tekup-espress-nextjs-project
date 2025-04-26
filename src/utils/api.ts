@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Ticket, Comment } from "../types";
+import { Ticket, User } from "../types"; // Ensure User type is defined
 
 // Create an axios instance
 export const api = axios.create({
@@ -77,6 +77,45 @@ export const ticketsAPI = {
     const { data } = await api.patch(`/tickets/${ticketId}/assign`, {
       agentId,
     });
+    return data;
+  },
+};
+
+// Users API functions
+export const usersAPI = {
+  // Get all users [admin]
+  getAllUsers: async () => {
+    const { data } = await api.get("/users");
+    return data;
+  },
+
+  // Get user by ID [admin]
+  getUserById: async (id: string) => {
+    const { data } = await api.get(`/users/${id}`);
+    return data;
+  },
+
+  // Get all agents [admin]
+  getAllAgents: async () => {
+    const { data } = await api.get("/users/agents");
+    return data;
+  },
+
+  // Edit user [user can update their info]
+  editUser: async (userData: Partial<User>) => {
+    const { data } = await api.patch("/users/me", userData);
+    return data;
+  },
+
+  // Delete user [admin]
+  deleteUser: async (id: string) => {
+    const { data } = await api.delete(`/users/${id}`);
+    return data;
+  },
+
+  // Create user [admin]
+  createUser: async (userData: Partial<User>) => {
+    const { data } = await api.post("/users/create", userData);
     return data;
   },
 };

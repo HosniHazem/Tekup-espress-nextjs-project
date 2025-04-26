@@ -4,58 +4,60 @@ const ticketSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   description: {
     type: String,
-    required: true
+    required: true,
   },
   status: {
     type: String,
-    enum: ['open', 'in_progress', 'resolved', 'closed'],
-    default: 'open'
+    enum: ["open", "in_progress", "resolved", "closed"],
+    default: "open",
   },
   priority: {
     type: String,
-    enum: ['low', 'medium', 'high', 'urgent'],
-    default: 'medium'
+    enum: ["low", "medium", "high", "urgent"],
+    default: "medium",
   },
   category: {
     type: String,
-    required: true
+    required: true,
   },
-  userId: {
+  owner: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
+    ref: "User", // The admin or agent who created the ticket
+    required: true,
   },
-  assignedToId: {
+  assignedTo: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    ref: "User", // The user or agent the ticket is assigned to
   },
-  comments: [{
-    content: {
-      type: String,
-      required: true
+  comments: [
+    {
+      content: {
+        type: String,
+        required: true,
+      },
+      userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      },
     },
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: true
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now
-    }
-  }],
+  ],
   createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   updatedAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 // Update the updatedAt timestamp before saving
