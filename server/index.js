@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import authRoutes from './routes/auth.js';
 import ticketRoutes from './routes/tickets.js';
+import userRoutes from './routes/user.js';
 import { verifyToken } from './middleware/auth.js';
 
 dotenv.config();
@@ -22,6 +23,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/support-d
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/tickets', verifyToken, ticketRoutes);
+app.use('/api/users', verifyToken, userRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
